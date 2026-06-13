@@ -7,30 +7,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
+        /* Tetapan Asas */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            min-height: 100%;
             background: linear-gradient(135deg, #fff1f2 0%, #fbcfe8 100%);
+            background-attachment: fixed; /* Supaya background tak rosak bila scroll */
             font-family: 'Quicksand', sans-serif;
+            color: #831843;
+        }
+
+        /* Kunci scroll masa awal-awal */
+        body {
+            overflow: hidden; 
+        }
+
+        /* Class ni akan ditambah guna JS untuk buka fungsi scroll */
+        body.bebas-scroll {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        /* Kotak utama untuk susunan */
+        #wrapper {
+            width: 100%;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Kunci skrin masa awal sahaja */
-            color: #831843;
-            transition: padding 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        body.bebas-scroll #wrapper {
+            justify-content: flex-start;
+            padding-top: 40px;
+            padding-bottom: 50px;
         }
 
         /* =========================================
            BAHAGIAN 1: MASJID & TEKS AWAL
            ========================================= */
         #bahagian-awal {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             display: flex;
@@ -131,7 +156,6 @@
             display: none;
             text-align: center;
             margin-top: 30px;
-            margin-bottom: 20px;
             opacity: 0;
             transition: opacity 1s ease;
         }
@@ -183,32 +207,34 @@
 </head>
 <body>
 
-    <div id="bahagian-awal">
-        <div class="masjid-container" id="masjid-animasi">
-            <svg class="svg-masjid" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="100" width="180" height="20" rx="5" />
-                <path d="M 100 30 C 135 30, 140 70, 140 100 L 60 100 C 60 70, 65 30, 100 30 Z" />
-                <path d="M 100 10 C 105 10, 108 13, 108 18 C 104 17, 100 20, 100 24 C 95 24, 92 19, 94 14 C 95 11, 97 10, 100 10 Z" fill="#fbcfe8"/>
-                <rect x="25" y="50" width="10" height="50" />
-                <polygon points="20,50 40,50 30,25" />
-                <rect x="165" y="50" width="10" height="50" />
-                <polygon points="160,50 180,50 170,25" />
-                <path d="M 100 70 C 110 70, 115 80, 115 100 L 85 100 C 85 80, 90 70, 100 70 Z" fill="#fff1f2"/>
-            </svg>
+    <div id="wrapper">
+        <div id="bahagian-awal">
+            <div class="masjid-container" id="masjid-animasi">
+                <svg class="svg-masjid" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="100" width="180" height="20" rx="5" />
+                    <path d="M 100 30 C 135 30, 140 70, 140 100 L 60 100 C 60 70, 65 30, 100 30 Z" />
+                    <path d="M 100 10 C 105 10, 108 13, 108 18 C 104 17, 100 20, 100 24 C 95 24, 92 19, 94 14 C 95 11, 97 10, 100 10 Z" fill="#fbcfe8"/>
+                    <rect x="25" y="50" width="10" height="50" />
+                    <polygon points="20,50 40,50 30,25" />
+                    <rect x="165" y="50" width="10" height="50" />
+                    <polygon points="160,50 180,50 170,25" />
+                    <path d="M 100 70 C 110 70, 115 80, 115 100 L 85 100 C 85 80, 90 70, 100 70 Z" fill="#fff1f2"/>
+                </svg>
 
-            <div class="teks-klik" id="teks-jujur" onclick="mulakanSurat()">
-                Mungkin masih awal tetapi saya perlu jujur
+                <div class="teks-klik" id="teks-jujur" onclick="mulakanSurat()">
+                    Mungkin masih awal tetapi saya perlu jujur
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="bahagian-surat">
-        <div class="kertas-rasmi" id="kandungan-surat">
-        </div>
+        <div id="bahagian-surat">
+            <div class="kertas-rasmi" id="kandungan-surat">
+            </div>
 
-        <div class="butang-bunga-container" id="kotak-bunga">
-            <button class="btn-bunga" onclick="keluarkanBunga(event)">🌸</button>
-            <div class="petunjuk-bunga">Sentuh bunga ini</div>
+            <div class="butang-bunga-container" id="kotak-bunga">
+                <button class="btn-bunga" onclick="keluarkanBunga(event)">🌸</button>
+                <div class="petunjuk-bunga">Sentuh bunga ini</div>
+            </div>
         </div>
     </div>
 
@@ -253,11 +279,8 @@
                     bahagianAwal.style.display = 'none';
                     bahagianSurat.style.display = 'block';
                     
-                    // BENARKAN SCROLLING BILA SURAT MULA KELUAR
-                    document.body.style.overflow = 'auto';
-                    document.body.style.justifyContent = 'flex-start';
-                    document.body.style.paddingTop = '40px';
-                    document.body.style.paddingBottom = '40px';
+                    // FUNGSI UNLOCK SCROLL YANG BARU & DIJAMIN BERJAYA
+                    document.body.classList.add('bebas-scroll');
                     
                     setTimeout(() => {
                         bahagianSurat.style.opacity = '1';
@@ -291,8 +314,8 @@
                         baris.innerHTML += teksBaris.charAt(i);
                         i++;
                         
-                        // Sentiasa auto-scroll ke bawah bila ayat menaip (guna untuk fon kecil)
-                        window.scrollTo(0, document.body.scrollHeight);
+                        // Auto-scroll masa menaip
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
                         
                         setTimeout(taipHuruf, 40);
                     } else {
@@ -310,7 +333,7 @@
                 setTimeout(() => {
                     const kotakBunga = document.getElementById('kotak-bunga');
                     kotakBunga.style.display = 'block';
-                    window.scrollTo(0, document.body.scrollHeight); // pastikan bunga nampak
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
                     setTimeout(() => {
                         kotakBunga.style.opacity = '1';
                     }, 50);
@@ -320,8 +343,6 @@
 
         function keluarkanBunga(event) {
             const emojis = ['🌸', '🌺', '🌷', '✨', '💖', '🌼'];
-            
-            // Dapatkan posisi yang betul walaupun skrin dah di-scroll
             const xKlik = event.clientX;
             const yKlik = event.clientY;
 
