@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Satu Kejujuran 🌸</title>
-    <!-- Import font elegan untuk surat rasmi dan font comel untuk butang -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
@@ -19,10 +18,12 @@
             font-family: 'Quicksand', sans-serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow: hidden; /* Kunci skrin masa awal sahaja */
             color: #831843;
+            transition: padding 0.5s ease;
         }
 
         /* =========================================
@@ -41,49 +42,49 @@
 
         .masjid-container {
             position: relative;
-            transform: translateY(100vh); /* Mula dari bawah skrin */
+            transform: translateY(100vh);
             transition: transform 2s cubic-bezier(0.25, 1, 0.5, 1);
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
 
-        /* Class untuk animasi Rise Up & Rise Down */
         .masjid-container.rise-up {
-            transform: translateY(10vh); /* Naik ke tengah sikit */
+            transform: translateY(10vh);
         }
 
         .masjid-container.rise-down {
-            transform: translateY(100vh); /* Turun balik ke bawah */
+            transform: translateY(100vh);
         }
 
-        /* Reka bentuk Masjid guna SVG */
         .svg-masjid {
             width: 350px;
             height: auto;
-            fill: #be185d; /* Warna pink gelap / rose */
+            fill: #be185d;
             opacity: 0.9;
             filter: drop-shadow(0 -10px 20px rgba(244, 114, 182, 0.4));
         }
 
-        /* Teks di tengah masjid */
         .teks-klik {
             position: absolute;
-            top: 45%;
+            top: 40%;
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #ffffff;
-            background: rgba(190, 24, 93, 0.7);
-            padding: 10px 20px;
-            border-radius: 10px;
+            background: rgba(190, 24, 93, 0.8);
+            padding: 12px 20px;
+            border-radius: 12px;
             cursor: pointer;
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             animation: pulse 2s infinite;
             opacity: 0;
             transition: opacity 1s ease;
+            width: 85%;
+            max-width: 400px;
         }
 
         @keyframes pulse {
@@ -101,22 +102,21 @@
             transition: opacity 1.5s ease;
             width: 100%;
             max-width: 600px;
-            padding: 20px;
+            padding: 15px;
             z-index: 5;
-            position: relative;
         }
 
         .kertas-rasmi {
             background-color: #ffffff;
-            padding: 50px 40px;
-            border-radius: 5px;
-            box-shadow: 0 20px 50px rgba(225, 29, 72, 0.15);
-            font-family: 'Playfair Display', serif; /* Font nampak macam surat ditaip rasmi */
-            font-size: 1.2rem;
+            padding: 40px 30px;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(225, 29, 72, 0.15);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
             line-height: 1.8;
             color: #4c0519;
             text-align: justify;
-            border-left: 5px solid #f472b6; /* Garisan tepi estetik */
+            border-left: 5px solid #f472b6;
         }
 
         .barisan-ayat {
@@ -128,9 +128,10 @@
            BAHAGIAN 3: BUTANG BUNGA
            ========================================= */
         .butang-bunga-container {
-            display: none; /* Sorok dulu, keluar lepas surat habis ditaip */
+            display: none;
             text-align: center;
             margin-top: 30px;
+            margin-bottom: 20px;
             opacity: 0;
             transition: opacity 1s ease;
         }
@@ -145,12 +146,8 @@
             filter: drop-shadow(0 5px 10px rgba(244, 114, 182, 0.4));
         }
 
-        .btn-bunga:hover {
+        .btn-bunga:hover, .btn-bunga:active {
             transform: scale(1.1) rotate(10deg);
-        }
-
-        .btn-bunga:active {
-            transform: scale(0.9);
         }
 
         .petunjuk-bunga {
@@ -161,7 +158,6 @@
             margin-top: 5px;
         }
 
-        /* Animasi Bunga Ceria (Particle Effect) */
         .kelopak {
             position: fixed;
             pointer-events: none;
@@ -174,49 +170,40 @@
             100% { transform: scale(1.5) translateY(-150px) rotate(360deg); opacity: 0; }
         }
 
-        /* Responsive untuk Phone */
+        /* =========================================
+           RESPONSIVE (Biar kemas kat skrin fon)
+           ========================================= */
         @media (max-width: 480px) {
-            .svg-masjid { width: 300px; }
-            .teks-klik { font-size: 1.1rem; top: 40%; }
-            .kertas-rasmi { padding: 30px 20px; font-size: 1.1rem; }
+            .svg-masjid { width: 280px; }
+            .teks-klik { font-size: 1.1rem; top: 35%; }
+            .kertas-rasmi { padding: 30px 20px; font-size: 1rem; line-height: 1.6; }
             .masjid-container.rise-up { transform: translateY(20vh); }
         }
     </style>
 </head>
 <body>
 
-    <!-- BAHAGIAN 1: Masjid & Teks (Mula-mula buka link) -->
     <div id="bahagian-awal">
         <div class="masjid-container" id="masjid-animasi">
-            <!-- Lukisan Masjid SVG -->
             <svg class="svg-masjid" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
-                <!-- Tapak -->
                 <rect x="10" y="100" width="180" height="20" rx="5" />
-                <!-- Kubah Utama -->
                 <path d="M 100 30 C 135 30, 140 70, 140 100 L 60 100 C 60 70, 65 30, 100 30 Z" />
-                <!-- Bulan Sabit di Kubah Utama -->
                 <path d="M 100 10 C 105 10, 108 13, 108 18 C 104 17, 100 20, 100 24 C 95 24, 92 19, 94 14 C 95 11, 97 10, 100 10 Z" fill="#fbcfe8"/>
-                <!-- Menara Kiri -->
                 <rect x="25" y="50" width="10" height="50" />
                 <polygon points="20,50 40,50 30,25" />
-                <!-- Menara Kanan -->
                 <rect x="165" y="50" width="10" height="50" />
                 <polygon points="160,50 180,50 170,25" />
-                <!-- Pintu -->
                 <path d="M 100 70 C 110 70, 115 80, 115 100 L 85 100 C 85 80, 90 70, 100 70 Z" fill="#fff1f2"/>
             </svg>
 
-            <!-- Teks yang boleh di-klik -->
             <div class="teks-klik" id="teks-jujur" onclick="mulakanSurat()">
                 Mungkin masih awal tetapi saya perlu jujur
             </div>
         </div>
     </div>
 
-    <!-- BAHAGIAN 2 & 3: Surat Rasmi & Butang Bunga -->
     <div id="bahagian-surat">
         <div class="kertas-rasmi" id="kandungan-surat">
-            <!-- Teks akan ditaip di sini oleh JavaScript -->
         </div>
 
         <div class="butang-bunga-container" id="kotak-bunga">
@@ -226,7 +213,6 @@
     </div>
 
     <script>
-        // Data ayat untuk surat (Format Rasmi)
         const ayatSurat = [
             "Tarikh: 13 Jun 2026",
             "",
@@ -241,58 +227,53 @@
             "….walau apa pun jawapan kamu, saya terima dengan hati yang terbuka…."
         ];
 
-        // Jalankan animasi masjid Rise Up bila website siap loading
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('masjid-animasi').classList.add('rise-up');
-                
-                // Munculkan teks selepas masjid naik sikit
                 setTimeout(() => {
                     document.getElementById('teks-jujur').style.opacity = '1';
                 }, 1500);
             }, 300);
         };
 
-        // Fungsi bila teks ditekan
         function mulakanSurat() {
             const bahagianAwal = document.getElementById('bahagian-awal');
             const masjid = document.getElementById('masjid-animasi');
             const teks = document.getElementById('teks-jujur');
             const bahagianSurat = document.getElementById('bahagian-surat');
 
-            // 1. Hilangkan teks
             teks.style.opacity = '0';
             teks.style.pointerEvents = 'none';
 
-            // 2. Turunkan masjid (Rise Down)
             setTimeout(() => {
                 masjid.classList.remove('rise-up');
                 masjid.classList.add('rise-down');
 
-                // 3. Lepas masjid dah turun, hilangkan bahagian awal & tunjuk surat
                 setTimeout(() => {
                     bahagianAwal.style.display = 'none';
                     bahagianSurat.style.display = 'block';
                     
+                    // BENARKAN SCROLLING BILA SURAT MULA KELUAR
+                    document.body.style.overflow = 'auto';
+                    document.body.style.justifyContent = 'flex-start';
+                    document.body.style.paddingTop = '40px';
+                    document.body.style.paddingBottom = '40px';
+                    
                     setTimeout(() => {
                         bahagianSurat.style.opacity = '1';
-                        // Mula menaip
                         taipSurat(0);
                     }, 100);
-                }, 1500); // Masa selari dengan CSS transition masjid turun
+                }, 1500);
             }, 500);
         }
 
-        // Fungsi efek menaip baris demi baris
         function taipSurat(indeksBaris) {
             const ruangSurat = document.getElementById('kandungan-surat');
 
             if (indeksBaris < ayatSurat.length) {
-                // Buat container baris baru
                 let baris = document.createElement('div');
                 baris.className = 'barisan-ayat';
                 
-                // Set style khas untuk ayat last supaya nampak lebih mendalam
                 if (indeksBaris === ayatSurat.length - 1) {
                     baris.style.fontStyle = 'italic';
                     baris.style.fontWeight = 'bold';
@@ -305,30 +286,31 @@
                 let teksBaris = ayatSurat[indeksBaris];
                 let i = 0;
 
-                // Function menaip huruf
                 function taipHuruf() {
                     if (i < teksBaris.length) {
                         baris.innerHTML += teksBaris.charAt(i);
                         i++;
-                        setTimeout(taipHuruf, 40); // Kelajuan taip huruf (40ms)
+                        
+                        // Sentiasa auto-scroll ke bawah bila ayat menaip (guna untuk fon kecil)
+                        window.scrollTo(0, document.body.scrollHeight);
+                        
+                        setTimeout(taipHuruf, 40);
                     } else {
-                        // Lepas habis sebaris, rehat kejap pastu sambung baris bawah
                         setTimeout(() => taipSurat(indeksBaris + 1), 300);
                     }
                 }
 
                 if (teksBaris === "") {
-                    // Kalau baris kosong (jarak perenggan)
                     setTimeout(() => taipSurat(indeksBaris + 1), 100);
                 } else {
                     taipHuruf();
                 }
 
             } else {
-                // Surat habis ditaip, tunjukkan butang bunga
                 setTimeout(() => {
                     const kotakBunga = document.getElementById('kotak-bunga');
                     kotakBunga.style.display = 'block';
+                    window.scrollTo(0, document.body.scrollHeight); // pastikan bunga nampak
                     setTimeout(() => {
                         kotakBunga.style.opacity = '1';
                     }, 50);
@@ -336,45 +318,36 @@
             }
         }
 
-        // Fungsi Animasi Bunga Ceria (Bila klik butang 🌸)
         function keluarkanBunga(event) {
             const emojis = ['🌸', '🌺', '🌷', '✨', '💖', '🌼'];
+            
+            // Dapatkan posisi yang betul walaupun skrin dah di-scroll
             const xKlik = event.clientX;
             const yKlik = event.clientY;
 
-            // Hasilkan 20 kelopak/bunga setiap kali klik
             for (let i = 0; i < 20; i++) {
                 let kelopak = document.createElement('div');
                 kelopak.className = 'kelopak';
                 kelopak.innerText = emojis[Math.floor(Math.random() * emojis.length)];
                 
-                // Kedudukan rawak bermula dari tempat yang di-klik
                 kelopak.style.left = xKlik + 'px';
                 kelopak.style.top = yKlik + 'px';
-                
-                // Saiz rawak
                 kelopak.style.fontSize = (Math.random() * 20 + 15) + 'px';
                 
-                // Haluan pergerakan rawak
-                let rawakX = (Math.random() - 0.5) * 300; // Bergerak ke kiri/kanan
-                let rawakY = (Math.random() - 1) * 300;   // Bergerak ke atas
+                let rawakX = (Math.random() - 0.5) * 300; 
+                let rawakY = (Math.random() - 1) * 300;   
                 
-                kelopak.style.setProperty('--x', rawakX + 'px');
-                kelopak.style.setProperty('--y', rawakY + 'px');
-                
-                // Masukkan keyframes spesifik untuk kelopak ini
                 kelopak.animate([
                     { transform: 'translate(0, 0) scale(0) rotate(0deg)', opacity: 1 },
                     { transform: `translate(${rawakX}px, ${rawakY}px) scale(1.5) rotate(${Math.random() * 360}deg)`, opacity: 0 }
                 ], {
-                    duration: Math.random() * 1000 + 1000, // 1 hingga 2 saat
+                    duration: Math.random() * 1000 + 1000,
                     easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
                     fill: 'forwards'
                 });
 
                 document.body.appendChild(kelopak);
 
-                // Buang elemen lepas animasi habis
                 setTimeout(() => {
                     kelopak.remove();
                 }, 2000);
