@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Satu Kejujuran 🌸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Tukar font kepada Dancing Script yang sangat romantik -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,7 +20,7 @@
         }
 
         /* =========================================
-           PAGE 1: MASJID (Ditetapkan kat tengah skrin)
+           PAGE 1: MASJID
            ========================================= */
         #page-awal {
             position: fixed;
@@ -37,13 +38,12 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            /* Animasi naik dari bawah ke tengah skrin */
             animation: masjidNaik 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         @keyframes masjidNaik {
             0% { transform: translateY(100vh); }
-            100% { transform: translateY(0); } /* 0 bermaksud tepat di posisi asal (tengah) */
+            100% { transform: translateY(0); }
         }
 
         .masjid-turun {
@@ -52,7 +52,7 @@
 
         @keyframes masjidTurun {
             0% { transform: translateY(0); }
-            100% { transform: translateY(100vh); } /* Turun hilangkan diri */
+            100% { transform: translateY(100vh); }
         }
 
         .svg-masjid {
@@ -68,8 +68,8 @@
             top: 50%;
             transform: translateY(-50%);
             text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+            font-family: 'Dancing Script', cursive; /* Font Romantik */
+            font-size: 1.6rem; /* Besarkan sikit untuk cursive */
             font-weight: 700;
             color: #ffffff;
             background: rgba(190, 24, 93, 0.8);
@@ -80,7 +80,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             width: 85%;
             max-width: 350px;
-            /* Muncul selepas masjid siap naik */
             opacity: 0;
             animation: teksMuncul 1s ease 1.5s forwards, pulse 2s infinite 2.5s;
         }
@@ -96,7 +95,7 @@
         }
 
         /* =========================================
-           PAGE 2: SURAT (Boleh di-scroll sepenuhnya)
+           PAGE 2: SURAT
            ========================================= */
         #page-surat {
             display: none; 
@@ -112,9 +111,9 @@
             padding: 40px 25px;
             border-radius: 8px;
             box-shadow: 0 15px 40px rgba(225, 29, 72, 0.15);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-family: 'Dancing Script', cursive; /* Font Romantik */
+            font-size: 1.6rem; /* Saiz lebih besar supaya jelas dibaca */
+            line-height: 1.6;
             color: #4c0519;
             text-align: justify;
             border-left: 5px solid #f472b6;
@@ -123,7 +122,7 @@
         }
 
         .barisan-ayat {
-            min-height: 1.8rem;
+            min-height: 2rem;
             margin-bottom: 10px;
         }
 
@@ -172,10 +171,8 @@
 </head>
 <body>
 
-    <!-- PAGE 1: AWAL -->
     <div id="page-awal">
         <div class="masjid-container" id="masjid-animasi">
-            <!-- Lukisan Masjid SVG -->
             <svg class="svg-masjid" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
                 <rect x="10" y="100" width="180" height="20" rx="5" />
                 <path d="M 100 30 C 135 30, 140 70, 140 100 L 60 100 C 60 70, 65 30, 100 30 Z" />
@@ -187,17 +184,14 @@
                 <path d="M 100 70 C 110 70, 115 80, 115 100 L 85 100 C 85 80, 90 70, 100 70 Z" fill="#fff1f2"/>
             </svg>
 
-            <!-- Teks -->
             <div class="teks-klik" id="teks-jujur" onclick="bukaSurat()">
                 Mungkin masih awal tetapi saya perlu jujur
             </div>
         </div>
     </div>
 
-    <!-- PAGE 2: SURAT -->
     <div id="page-surat">
         <div class="kertas-rasmi" id="kandungan-surat">
-            <!-- Teks akan ditaip kat sini -->
         </div>
 
         <div class="butang-bunga-container" id="kotak-bunga">
@@ -227,8 +221,8 @@
             const masjid = document.getElementById('masjid-animasi');
             const teks = document.getElementById('teks-jujur');
 
-            teks.style.display = 'none'; // Padam teks
-            masjid.classList.add('masjid-turun'); // Turunkan masjid
+            teks.style.display = 'none'; 
+            masjid.classList.add('masjid-turun'); 
 
             setTimeout(() => {
                 pageAwal.style.display = 'none'; 
@@ -249,7 +243,6 @@
                 baris.className = 'barisan-ayat';
                 
                 if (indeksBaris === ayatSurat.length - 1) {
-                    baris.style.fontStyle = 'italic';
                     baris.style.fontWeight = 'bold';
                     baris.style.textAlign = 'center';
                     baris.style.marginTop = '30px';
@@ -263,10 +256,7 @@
                     if (i < teksBaris.length) {
                         baris.innerHTML += teksBaris.charAt(i);
                         i++;
-                        
-                        // Auto-scroll yang mesra fon
                         window.scrollTo(0, document.body.scrollHeight);
-                        
                         setTimeout(taipHuruf, 40);
                     } else {
                         setTimeout(() => taipSurat(indeksBaris + 1), 300);
